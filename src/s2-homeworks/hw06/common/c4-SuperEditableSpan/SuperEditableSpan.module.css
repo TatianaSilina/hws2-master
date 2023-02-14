@@ -5,7 +5,13 @@
 }
 
 .input {
+    width: 200px;
+    height: 36px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
 }
 
 .pen {
+    margin-right: 20px;
 }
