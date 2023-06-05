@@ -24,7 +24,7 @@ const HW13 = () => {
         const url =
             x === null
                 ? 'https://xxxxxx.ccc' // имитация запроса на не корректный адрес
-                : 'https://incubator-personal-page-back.herokuapp.com/api/3.0/homework/test'
+                : 'https://samurai.it-incubator.io/api/3.0/homework/test'
 
         setCode('')
         setImage('')
@@ -34,15 +34,36 @@ const HW13 = () => {
         axios
             .post(url, {success: x})
             .then((res) => {
-                setCode('Код 200!')
+                console.log(res)
+                setCode('Код 200')
                 setImage(success200)
-                // дописать
+                setText('Код 200')
+                setInfo('...всё ок! код 200 - означает что скорее всего всё ок)')
 
             })
             .catch((e) => {
+                if (e.response.status === 400) {
+                    setCode('Ошибка 400!');
+                    setImage(error400);
+                    setInfo('ошибка 400 - обычно означает что скорее всего фронт отправил что-то не то на бэк!');
+                    setText('Ты не отправил success в body вообще!');
+                }
+                if (e.response.status === 500) {
+                    setCode('Ошибка 500!');
+                    setImage(error500);
+                    setInfo('ошибка 500 - обычно означает что что-то сломалось на сервере, например база данных)');
+                    setText(
+                        'эмитация ошибки на сервере');
+                }
+                if (e.response.status === 0) {
+                    setCode('Error!');
+                    setImage(errorUnknown);
+                    setInfo('AxiosError');
+                    setText('Network Error');
+                }
                 // дописать
-
             })
+
     }
 
     return (
@@ -55,7 +76,7 @@ const HW13 = () => {
                         id={'hw13-send-true'}
                         onClick={send(true)}
                         xType={'secondary'}
-                        // дописать
+                        disabled={info === '...loading'}
 
                     >
                         Send true
