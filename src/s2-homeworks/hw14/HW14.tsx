@@ -44,7 +44,7 @@ const HW14 = () => {
 
     const onChangeText = (value: string) => {
         setFind(value)
-        setSearchtechsParams(value)
+        setSearchtechsParams(find)
     }
 
     useEffect(() => {
